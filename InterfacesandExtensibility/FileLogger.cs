@@ -1,25 +1,35 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace InterfacesandExtensibility
+﻿namespace InterfacesandExtensibility
 {
-
-    public class ConsoleLogger : ILogger
+    public class FileLogger  : ILogger
     {
-        public void LogError(string message)
+        private readonly string _path;   
+        public FileLogger(string path)
         {
-
-            Console.ForegroundColor = ConsoleColor.Green;
-            Console.WriteLine(message);
+            _path = path;
         }
 
-        public  void LogInfo(string message)
+        public void LogError(string message)
         {
-            Console.ForegroundColor = ConsoleColor.Green;
-            Console.WriteLine(message);
+            Log(message, "ERROR");
+
+
+        }
+
+        public void LogInfo(string message)
+        {
+            Log(message, "INFO");
+
+
+        }
+
+        private void Log(string message, string messageType)
+        {
+
+            using (var streamWriter = new StreamWriter(_path, true))
+            {
+                streamWriter.WriteLine(messageType + ": " + message);
+
+            }
         }
     }
 

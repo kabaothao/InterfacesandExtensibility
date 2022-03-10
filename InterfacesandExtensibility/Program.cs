@@ -9,7 +9,8 @@ namespace InterfacesandExtensibility // Note: actual namespace depends on the pr
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Hello World!");
+            var dbMigrator = new DbMigrator(new ConsoleLogger());
+            dbMigrator.Migrate();
         }
     }
 }
